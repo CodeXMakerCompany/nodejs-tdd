@@ -1,0 +1,3 @@
+mpodule.exports = {
+    testEnvironment: "node"
+}

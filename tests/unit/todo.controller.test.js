@@ -1,3 +1,6 @@
+//Libs
+const httpMocks = require('node-mocks-http');
+//Models and controllers
 const TodoController  = require('../../controllers/todo.controller');
 const TodoModel = require('../../model/todo.model');
 
@@ -10,7 +13,12 @@ describe('Todo controller tersting group', () => {
     });
 
     it('should call todoModel.create', () => {
-        TodoController.createTodo();
+        let req, res, next;
+        req = httpMocks.createRequest();
+        res = httpMocks.createResponse();
+        next = null;
+
+        TodoController.createTodo(req, res, next);
         expect(TodoModel.create).toBeCalled();
     });
 });
