@@ -19,12 +19,15 @@ beforeEach(() => {
 
 describe('Todo controller tersting group', () => {
 
+    beforeEach(() => {
+        req.body = newTodo;
+    });
+
     it('should have a createTodo function', () => {
         expect(typeof TodoController.createTodo).toBe('function');
     });
 
     it('should call todoModel.create', () => {
-        req.body = newTodo;
 
         TodoController.createTodo(req, res, next);
         expect(TodoModel.create).toBeCalled();
@@ -33,10 +36,16 @@ describe('Todo controller tersting group', () => {
     });
 
     it('should return a response code', () => {
-        req.body = newTodo;
 
         TodoController.createTodo(req, res, next);
         expect(res.statusCode).toBe(201);
         expect(res._isEndCalled()).toBeTruthy();
+    });
+
+    it('should return a json body in response', () => {
+
+        TodoModel.create.mockReturnValue(newTodo);
+        TodoController.createTodo(req, res, next);
+        expect(res._getJSONData()).toStrictEqual(newTodo);
     });
 });
