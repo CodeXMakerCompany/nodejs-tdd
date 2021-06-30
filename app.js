@@ -10,6 +10,11 @@ app.use(express.json());
 
 app.use("/todos", todoRoutes);
 
+//Middleware that catch error
+app.use((error, req, res, next) => {
+    res.status(500).json({message: error.message})
+});
+
 app.get('/', (req, res) => {
     res.json("Hello world");
 });
