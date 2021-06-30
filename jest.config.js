@@ -1,3 +1,3 @@
-mpodule.exports = {
+module.exports = {
     testEnvironment: "node"
 }

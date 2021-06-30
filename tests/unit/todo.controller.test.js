@@ -27,25 +27,25 @@ describe('Todo controller tersting group', () => {
         expect(typeof TodoController.createTodo).toBe('function');
     });
 
-    it('should call todoModel.create', () => {
+    it('should call todoModel.create', async () => {
 
-        TodoController.createTodo(req, res, next);
-        expect(TodoModel.create).toBeCalled();
+        await TodoController.createTodo(req, res, next);
+        expect(await TodoModel.create).toBeCalled();
 
-        expect(TodoModel.create).toBeCalledWith(newTodo);
+        expect(await TodoModel.create).toBeCalledWith(newTodo);
     });
 
-    it('should return a response code', () => {
+    it('should return a response code', async () => {
 
-        TodoController.createTodo(req, res, next);
-        expect(res.statusCode).toBe(201);
-        expect(res._isEndCalled()).toBeTruthy();
+        await TodoController.createTodo(req, res, next);
+        expect(await res.statusCode).toBe(201);
+        expect(await res._isEndCalled()).toBeTruthy();
     });
 
-    it('should return a json body in response', () => {
+    it('should return a json body in response', async () => {
 
         TodoModel.create.mockReturnValue(newTodo);
-        TodoController.createTodo(req, res, next);
-        expect(res._getJSONData()).toStrictEqual(newTodo);
+        await TodoController.createTodo(req, res, next);
+        expect(await res._getJSONData()).toStrictEqual(newTodo);
     });
 });
